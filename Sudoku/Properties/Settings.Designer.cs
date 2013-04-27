@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Suduko.Properties
+namespace Sudoku.Properties
 {
 
 

@@ -1,26 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace Suduko
+namespace Sudoku
 {
-
-
-    public partial class Form1 : Form
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
     {
+
+        class Box
+        {
+            public byte x, y, bigboxX, bigboxY, smallboxX, smallboxY, number;
+
+            public Box(byte x, byte y, byte bigboxX, byte bigboxY, byte smallboxX, byte smallboxY, byte number)
+            {
+                this.x = x;
+                this.y = y;
+                this.bigboxX = bigboxX;
+                this.bigboxY = bigboxY;
+                this.smallboxX = smallboxX;
+                this.smallboxY = smallboxY;
+                this.number = number;
+            }
+        }
+
         Byte[,] Arr = new Byte[9, 9];
-        Byte [,][,] Arr3x3=new byte[3,3][,];
+        Byte[,][,] Arr3x3 = new byte[3, 3][,];
         Byte[,] basicArr = new Byte[9, 9];
         Byte[,][,] basicArr3x3 = new byte[3, 3][,];
         bool? Solved = null;
         List<byte> takedNumber = new List<byte>();
-        public Form1()
+        public MainWindow()
         {
             InitializeComponent();
         }
@@ -109,87 +132,87 @@ namespace Suduko
             Byte.TryParse(textBox80.Text, out basicArr[8, 7]);
             Byte.TryParse(textBox81.Text, out basicArr[8, 8]);
 
-            Byte.TryParse(textBox1.Text, out basicArr3x3[0, 0][0,0]);
-            Byte.TryParse(textBox2.Text, out basicArr3x3[0, 0][0,1]);
-            Byte.TryParse(textBox3.Text, out basicArr3x3[0, 0][0,2]);
-            Byte.TryParse(textBox10.Text, out basicArr3x3[0, 0][1,0]);
-            Byte.TryParse(textBox11.Text, out basicArr3x3[0, 0][1,1]);
-            Byte.TryParse(textBox12.Text, out basicArr3x3[0, 0][1,2]);
-            Byte.TryParse(textBox19.Text, out basicArr3x3[0, 0][2,0]);
-            Byte.TryParse(textBox20.Text, out basicArr3x3[0, 0][2,1]);
-            Byte.TryParse(textBox21.Text, out basicArr3x3[0, 0][2,2]);
-            Byte.TryParse(textBox4.Text, out basicArr3x3[0, 1][0,0]);
-            Byte.TryParse(textBox5.Text, out basicArr3x3[0, 1][0,1]);
-            Byte.TryParse(textBox6.Text, out basicArr3x3[0, 1][0,2]);
-            Byte.TryParse(textBox13.Text, out basicArr3x3[0, 1][1,0]);
-            Byte.TryParse(textBox14.Text, out basicArr3x3[0, 1][1,1]);
-            Byte.TryParse(textBox15.Text, out basicArr3x3[0, 1][1,2]);
-            Byte.TryParse(textBox22.Text, out basicArr3x3[0, 1][2,0]);
-            Byte.TryParse(textBox23.Text, out basicArr3x3[0, 1][2,1]);
-            Byte.TryParse(textBox24.Text, out basicArr3x3[0, 1][2,2]);
-            Byte.TryParse(textBox7.Text, out basicArr3x3[0, 2][0,0]);
-            Byte.TryParse(textBox8.Text, out basicArr3x3[0, 2][0,1]);
-            Byte.TryParse(textBox9.Text, out basicArr3x3[0, 2][0,2]);
-            Byte.TryParse(textBox16.Text, out basicArr3x3[0, 2][1,0]);
-            Byte.TryParse(textBox17.Text, out basicArr3x3[0, 2][1,1]);
-            Byte.TryParse(textBox18.Text, out basicArr3x3[0, 2][1,2]);
-            Byte.TryParse(textBox25.Text, out basicArr3x3[0, 2][2,0]);
-            Byte.TryParse(textBox26.Text, out basicArr3x3[0, 2][2,1]);
-            Byte.TryParse(textBox27.Text, out basicArr3x3[0, 2][2,2]);
-            Byte.TryParse(textBox28.Text, out basicArr3x3[1, 0][0,0]);
-            Byte.TryParse(textBox29.Text, out basicArr3x3[1, 0][0,1]);
-            Byte.TryParse(textBox30.Text, out basicArr3x3[1, 0][0,2]);
-            Byte.TryParse(textBox37.Text, out basicArr3x3[1, 0][1,0]);
-            Byte.TryParse(textBox38.Text, out basicArr3x3[1, 0][1,1]);
-            Byte.TryParse(textBox39.Text, out basicArr3x3[1, 0][1,2]);
-            Byte.TryParse(textBox46.Text, out basicArr3x3[1, 0][2,0]);
-            Byte.TryParse(textBox47.Text, out basicArr3x3[1, 0][2,1]);
-            Byte.TryParse(textBox48.Text, out basicArr3x3[1, 0][2,2]);
-            Byte.TryParse(textBox31.Text, out basicArr3x3[1, 1][0,0]);
-            Byte.TryParse(textBox32.Text, out basicArr3x3[1, 1][0,1]);
-            Byte.TryParse(textBox33.Text, out basicArr3x3[1, 1][0,2]);
-            Byte.TryParse(textBox40.Text, out basicArr3x3[1, 1][1,0]);
-            Byte.TryParse(textBox41.Text, out basicArr3x3[1, 1][1,1]);
-            Byte.TryParse(textBox42.Text, out basicArr3x3[1, 1][1,2]);
-            Byte.TryParse(textBox49.Text, out basicArr3x3[1, 1][2,0]);
-            Byte.TryParse(textBox50.Text, out basicArr3x3[1, 1][2,1]);
-            Byte.TryParse(textBox51.Text, out basicArr3x3[1, 1][2,2]);
-            Byte.TryParse(textBox34.Text, out basicArr3x3[1, 2][0,0]);
-            Byte.TryParse(textBox35.Text, out basicArr3x3[1, 2][0,1]);
-            Byte.TryParse(textBox36.Text, out basicArr3x3[1, 2][0,2]);
-            Byte.TryParse(textBox43.Text, out basicArr3x3[1, 2][1,0]);
-            Byte.TryParse(textBox44.Text, out basicArr3x3[1, 2][1,1]);
-            Byte.TryParse(textBox45.Text, out basicArr3x3[1, 2][1,2]);
-            Byte.TryParse(textBox52.Text, out basicArr3x3[1, 2][2,0]);
-            Byte.TryParse(textBox53.Text, out basicArr3x3[1, 2][2,1]);
-            Byte.TryParse(textBox54.Text, out basicArr3x3[1, 2][2,2]);
-            Byte.TryParse(textBox55.Text, out basicArr3x3[2, 0][0,0]);
-            Byte.TryParse(textBox56.Text, out basicArr3x3[2, 0][0,1]);
-            Byte.TryParse(textBox57.Text, out basicArr3x3[2, 0][0,2]);
-            Byte.TryParse(textBox64.Text, out basicArr3x3[2, 0][1,0]);
-            Byte.TryParse(textBox65.Text, out basicArr3x3[2, 0][1,1]);
-            Byte.TryParse(textBox66.Text, out basicArr3x3[2, 0][1,2]);
-            Byte.TryParse(textBox73.Text, out basicArr3x3[2, 0][2,0]);
-            Byte.TryParse(textBox74.Text, out basicArr3x3[2, 0][2,1]);
-            Byte.TryParse(textBox75.Text, out basicArr3x3[2, 0][2,2]);
-            Byte.TryParse(textBox58.Text, out basicArr3x3[2, 1][0,0]);
-            Byte.TryParse(textBox59.Text, out basicArr3x3[2, 1][0,1]);
-            Byte.TryParse(textBox60.Text, out basicArr3x3[2, 1][0,2]);
-            Byte.TryParse(textBox67.Text, out basicArr3x3[2, 1][1,0]);
-            Byte.TryParse(textBox68.Text, out basicArr3x3[2, 1][1,1]);
-            Byte.TryParse(textBox69.Text, out basicArr3x3[2, 1][1,2]);
-            Byte.TryParse(textBox76.Text, out basicArr3x3[2, 1][2,0]);
-            Byte.TryParse(textBox77.Text, out basicArr3x3[2, 1][2,1]);
-            Byte.TryParse(textBox78.Text, out basicArr3x3[2, 1][2,2]);
-            Byte.TryParse(textBox61.Text, out basicArr3x3[2, 2][0,0]);
-            Byte.TryParse(textBox62.Text, out basicArr3x3[2, 2][0,1]);
-            Byte.TryParse(textBox63.Text, out basicArr3x3[2, 2][0,2]);
-            Byte.TryParse(textBox70.Text, out basicArr3x3[2, 2][1,0]);
-            Byte.TryParse(textBox71.Text, out basicArr3x3[2, 2][1,1]);
-            Byte.TryParse(textBox72.Text, out basicArr3x3[2, 2][1,0]);
-            Byte.TryParse(textBox79.Text, out basicArr3x3[2, 2][2,0]);
-            Byte.TryParse(textBox80.Text, out basicArr3x3[2, 2][2,1]);
-            Byte.TryParse(textBox81.Text, out basicArr3x3[2, 2][2,2]);
+            Byte.TryParse(textBox1.Text, out basicArr3x3[0, 0][0, 0]);
+            Byte.TryParse(textBox2.Text, out basicArr3x3[0, 0][0, 1]);
+            Byte.TryParse(textBox3.Text, out basicArr3x3[0, 0][0, 2]);
+            Byte.TryParse(textBox10.Text, out basicArr3x3[0, 0][1, 0]);
+            Byte.TryParse(textBox11.Text, out basicArr3x3[0, 0][1, 1]);
+            Byte.TryParse(textBox12.Text, out basicArr3x3[0, 0][1, 2]);
+            Byte.TryParse(textBox19.Text, out basicArr3x3[0, 0][2, 0]);
+            Byte.TryParse(textBox20.Text, out basicArr3x3[0, 0][2, 1]);
+            Byte.TryParse(textBox21.Text, out basicArr3x3[0, 0][2, 2]);
+            Byte.TryParse(textBox4.Text, out basicArr3x3[0, 1][0, 0]);
+            Byte.TryParse(textBox5.Text, out basicArr3x3[0, 1][0, 1]);
+            Byte.TryParse(textBox6.Text, out basicArr3x3[0, 1][0, 2]);
+            Byte.TryParse(textBox13.Text, out basicArr3x3[0, 1][1, 0]);
+            Byte.TryParse(textBox14.Text, out basicArr3x3[0, 1][1, 1]);
+            Byte.TryParse(textBox15.Text, out basicArr3x3[0, 1][1, 2]);
+            Byte.TryParse(textBox22.Text, out basicArr3x3[0, 1][2, 0]);
+            Byte.TryParse(textBox23.Text, out basicArr3x3[0, 1][2, 1]);
+            Byte.TryParse(textBox24.Text, out basicArr3x3[0, 1][2, 2]);
+            Byte.TryParse(textBox7.Text, out basicArr3x3[0, 2][0, 0]);
+            Byte.TryParse(textBox8.Text, out basicArr3x3[0, 2][0, 1]);
+            Byte.TryParse(textBox9.Text, out basicArr3x3[0, 2][0, 2]);
+            Byte.TryParse(textBox16.Text, out basicArr3x3[0, 2][1, 0]);
+            Byte.TryParse(textBox17.Text, out basicArr3x3[0, 2][1, 1]);
+            Byte.TryParse(textBox18.Text, out basicArr3x3[0, 2][1, 2]);
+            Byte.TryParse(textBox25.Text, out basicArr3x3[0, 2][2, 0]);
+            Byte.TryParse(textBox26.Text, out basicArr3x3[0, 2][2, 1]);
+            Byte.TryParse(textBox27.Text, out basicArr3x3[0, 2][2, 2]);
+            Byte.TryParse(textBox28.Text, out basicArr3x3[1, 0][0, 0]);
+            Byte.TryParse(textBox29.Text, out basicArr3x3[1, 0][0, 1]);
+            Byte.TryParse(textBox30.Text, out basicArr3x3[1, 0][0, 2]);
+            Byte.TryParse(textBox37.Text, out basicArr3x3[1, 0][1, 0]);
+            Byte.TryParse(textBox38.Text, out basicArr3x3[1, 0][1, 1]);
+            Byte.TryParse(textBox39.Text, out basicArr3x3[1, 0][1, 2]);
+            Byte.TryParse(textBox46.Text, out basicArr3x3[1, 0][2, 0]);
+            Byte.TryParse(textBox47.Text, out basicArr3x3[1, 0][2, 1]);
+            Byte.TryParse(textBox48.Text, out basicArr3x3[1, 0][2, 2]);
+            Byte.TryParse(textBox31.Text, out basicArr3x3[1, 1][0, 0]);
+            Byte.TryParse(textBox32.Text, out basicArr3x3[1, 1][0, 1]);
+            Byte.TryParse(textBox33.Text, out basicArr3x3[1, 1][0, 2]);
+            Byte.TryParse(textBox40.Text, out basicArr3x3[1, 1][1, 0]);
+            Byte.TryParse(textBox41.Text, out basicArr3x3[1, 1][1, 1]);
+            Byte.TryParse(textBox42.Text, out basicArr3x3[1, 1][1, 2]);
+            Byte.TryParse(textBox49.Text, out basicArr3x3[1, 1][2, 0]);
+            Byte.TryParse(textBox50.Text, out basicArr3x3[1, 1][2, 1]);
+            Byte.TryParse(textBox51.Text, out basicArr3x3[1, 1][2, 2]);
+            Byte.TryParse(textBox34.Text, out basicArr3x3[1, 2][0, 0]);
+            Byte.TryParse(textBox35.Text, out basicArr3x3[1, 2][0, 1]);
+            Byte.TryParse(textBox36.Text, out basicArr3x3[1, 2][0, 2]);
+            Byte.TryParse(textBox43.Text, out basicArr3x3[1, 2][1, 0]);
+            Byte.TryParse(textBox44.Text, out basicArr3x3[1, 2][1, 1]);
+            Byte.TryParse(textBox45.Text, out basicArr3x3[1, 2][1, 2]);
+            Byte.TryParse(textBox52.Text, out basicArr3x3[1, 2][2, 0]);
+            Byte.TryParse(textBox53.Text, out basicArr3x3[1, 2][2, 1]);
+            Byte.TryParse(textBox54.Text, out basicArr3x3[1, 2][2, 2]);
+            Byte.TryParse(textBox55.Text, out basicArr3x3[2, 0][0, 0]);
+            Byte.TryParse(textBox56.Text, out basicArr3x3[2, 0][0, 1]);
+            Byte.TryParse(textBox57.Text, out basicArr3x3[2, 0][0, 2]);
+            Byte.TryParse(textBox64.Text, out basicArr3x3[2, 0][1, 0]);
+            Byte.TryParse(textBox65.Text, out basicArr3x3[2, 0][1, 1]);
+            Byte.TryParse(textBox66.Text, out basicArr3x3[2, 0][1, 2]);
+            Byte.TryParse(textBox73.Text, out basicArr3x3[2, 0][2, 0]);
+            Byte.TryParse(textBox74.Text, out basicArr3x3[2, 0][2, 1]);
+            Byte.TryParse(textBox75.Text, out basicArr3x3[2, 0][2, 2]);
+            Byte.TryParse(textBox58.Text, out basicArr3x3[2, 1][0, 0]);
+            Byte.TryParse(textBox59.Text, out basicArr3x3[2, 1][0, 1]);
+            Byte.TryParse(textBox60.Text, out basicArr3x3[2, 1][0, 2]);
+            Byte.TryParse(textBox67.Text, out basicArr3x3[2, 1][1, 0]);
+            Byte.TryParse(textBox68.Text, out basicArr3x3[2, 1][1, 1]);
+            Byte.TryParse(textBox69.Text, out basicArr3x3[2, 1][1, 2]);
+            Byte.TryParse(textBox76.Text, out basicArr3x3[2, 1][2, 0]);
+            Byte.TryParse(textBox77.Text, out basicArr3x3[2, 1][2, 1]);
+            Byte.TryParse(textBox78.Text, out basicArr3x3[2, 1][2, 2]);
+            Byte.TryParse(textBox61.Text, out basicArr3x3[2, 2][0, 0]);
+            Byte.TryParse(textBox62.Text, out basicArr3x3[2, 2][0, 1]);
+            Byte.TryParse(textBox63.Text, out basicArr3x3[2, 2][0, 2]);
+            Byte.TryParse(textBox70.Text, out basicArr3x3[2, 2][1, 0]);
+            Byte.TryParse(textBox71.Text, out basicArr3x3[2, 2][1, 1]);
+            Byte.TryParse(textBox72.Text, out basicArr3x3[2, 2][1, 0]);
+            Byte.TryParse(textBox79.Text, out basicArr3x3[2, 2][2, 0]);
+            Byte.TryParse(textBox80.Text, out basicArr3x3[2, 2][2, 1]);
+            Byte.TryParse(textBox81.Text, out basicArr3x3[2, 2][2, 2]);
         }
 
         #region Stage 1
@@ -368,7 +391,7 @@ namespace Suduko
 
         private List<Byte> MissingNumbers(List<Byte> List)
         {
-            List<Byte> missingNumbers=new List<byte>();
+            List<Byte> missingNumbers = new List<byte>();
             for (byte i = 1; i < 10; i++)
                 if (!List.Contains(i))
                     missingNumbers.Add(i);
@@ -546,7 +569,7 @@ namespace Suduko
             return true;
         }
 
-        private void Indexfrom3x3(byte n,byte index, byte[,] Array, out byte x, out byte y)
+        private void Indexfrom3x3(byte n, byte index, byte[,] Array, out byte x, out byte y)
         {
             x = 0; y = 0;
             for (byte i = 0; i < 3; i++)
@@ -559,25 +582,7 @@ namespace Suduko
             y = (Byte)(y + 3 * tmpy);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            for (int k = 0; k < 10; k++)
-            {
-                for (int i = 0; i < 3; i++)
-                    for (int j = 0; j < 3; j++)
-                        Arr3x3[i, j] = new Byte[3, 3];
-                for (int i = 0; i < 3; i++)
-                    for (int j = 0; j < 3; j++)
-                        basicArr3x3[i, j] = new Byte[3, 3];
-                FullBasicArr();
-                Clear();
-                FirstStage();
-                SocendSatge();
-                Print();
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             textBox1.Text = "";
             textBox2.Text = "";
@@ -662,97 +667,21 @@ namespace Suduko
             textBox81.Text = "";
         }
 
-
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    FullDefaultArr();
-        //    Byte[,] newtArr = new Byte[9, 9];
-        //    Clear(newtArr);
-        //    List<Byte> bannedNumber = new List<Byte>();
-        //    int rotation = 0;
-        //    while ((rotation < 1000000))
-        //    {
-        //        rotation++;
-        //        for (int i = 0; i < 9; i++)
-        //        {
-        //            for (int j = 0; j < 9; j++)
-        //                if (defaultArr[i, j] == 0)
-        //                {
-        //                    bannedNumber = GetBannedNumber(i, j, newtArr);
-        //                    Done = GetRandomNumber(bannedNumber, out newtArr[i, j]);
-        //                    if (!Done)
-        //                    {
-        //                        Clear(newtArr);
-        //                        break;
-        //                    }
-        //                }
-        //            if (!Done)
-        //                break;
-        //            }
-        //        rotation++;
-        //    }
-        //    if (Done)
-        //        Print(newtArr);
-        //}
-
-        //private void Clear(byte[,] newtArr)
-        //{
-        //    for (int i = 0; i < 9; i++)
-        //        for (int j = 0; j < 9; j++)
-        //            newtArr[i, j] = defaultArr[i, j];
-        //}
-
-        //private bool GetRandomNumber(List<byte> bannedNumber, out byte randomNumber)
-        //{
-        //    if (bannedNumber.Count > 8)
-        //    {
-        //        randomNumber = 0;
-        //        return false;
-        //    }
-        //    else
-        //    {
-        //        Random Rand = new Random((int)DateTime.Now.Ticks);
-        //        randomNumber = (Byte)Rand.Next(1, 9);
-        //        while (bannedNumber.Contains(randomNumber))
-        //            randomNumber = (Byte)Rand.Next(1, 10);
-        //        return true;
-        //    }
-        //}
-
-        //private List<Byte> GetBannedNumber(int x, int y, byte[,] newtArr)
-        //{
-        //    List<Byte> bannedNumber = new List<byte>();
-        //    for (int i = 0; i < 9; i++)
-        //        if ((newtArr[x, i] > 0) && NotExist(bannedNumber, newtArr[x, i]))
-        //            bannedNumber.Add(newtArr[x, i]);
-        //    for (int i = 0; i < 9; i++)
-        //        if ((newtArr[i, y] > 0) && NotExist(bannedNumber, newtArr[i, y]))
-        //            bannedNumber.Add(newtArr[i, y]);
-        //    int n = 1 + y / 3 + 3 * (x / 3);
-        //    int row = ((n - 1) / 3) * 3, column = ((n - 1) % 3) * 3;
-        //    for (int k = row; k < row + 3; k++)
-        //    {
-        //        for (int l = column; l < column + 3; l++)
-        //        {
-        //            if ((newtArr[k, l] > 0) && NotExist(bannedNumber, newtArr[k, l]))
-        //                bannedNumber.Add(newtArr[k, l]);
-        //        }
-        //    }
-        //    return bannedNumber;
-        //}
-        class Box
+        private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            public byte x, y, bigboxX, bigboxY, smallboxX, smallboxY, number;
-
-            public Box(byte x, byte y, byte bigboxX, byte bigboxY, byte smallboxX, byte smallboxY, byte number)
+            for (int k = 0; k < 10; k++)
             {
-                this.x = x;
-                this.y = y;
-                this.bigboxX = bigboxX;
-                this.bigboxY = bigboxY;
-                this.smallboxX = smallboxX;
-                this.smallboxY = smallboxY;
-                this.number = number;
+                for (int i = 0; i < 3; i++)
+                    for (int j = 0; j < 3; j++)
+                        Arr3x3[i, j] = new Byte[3, 3];
+                for (int i = 0; i < 3; i++)
+                    for (int j = 0; j < 3; j++)
+                        basicArr3x3[i, j] = new Byte[3, 3];
+                FullBasicArr();
+                Clear();
+                FirstStage();
+                SocendSatge();
+                Print();
             }
         }
     }
