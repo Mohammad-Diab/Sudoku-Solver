@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -26,7 +27,7 @@ namespace Suduku_Solver_2
             InitializeComponent();
             F11.Focus();
         }
-
+        List<>
         int[,] user_input = new int[9, 9];
         string[] sub_array;
         string[] colomns;
