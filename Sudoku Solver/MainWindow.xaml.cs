@@ -27,7 +27,6 @@ namespace Suduku_Solver_2
             InitializeComponent();
             F11.Focus();
         }
-        List<>
         int[,] user_input = new int[9, 9];
         string[] sub_array;
         string[] colomns;

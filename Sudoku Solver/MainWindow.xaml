@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Suduku_Solver_2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="520.667" Width="574.667">
+        Title="MainWindow" Height="520.667" Width="574.667" ResizeMode="NoResize" Icon="Images/Icon.ico">
     <Grid>
         <Grid x:Name="grd_container" Background="#FFF4F4F5" Margin="10,35,0,0" Height="393" VerticalAlignment="Top" HorizontalAlignment="Left" Width="500">
             <TextBox x:Name="F11" HorizontalAlignment="Left" Height="34" Margin="5,5,0,0" Text="1" VerticalAlignment="Top" Width="45" TextAlignment="Center" FontSize="22" BorderThickness="0" MaxLines="1" MaxLength="1" TabIndex="101" GotFocus="Cell_GetFocus" TextChanged="Cell_TextChanged" PreviewKeyUp="Cell_KeyUp"/>
