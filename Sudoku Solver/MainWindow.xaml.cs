@@ -212,13 +212,34 @@ namespace Suduku_Solver_2
                         for (int j = 0; j < 9; j++)
                             sub_arr[(i / 3) * 3 + (j / 3)] += solotion[i][j];
                     var poss = GeneratePossibleNumber(solotion, col, sub_arr);
-                    if (NextStep(level + 1, poss, solotion) == 1)
+                    if (CanBeSolved(poss) && NextStep(level + 1, poss, solotion) == 1)
                         return 1;
                 }
                 if (level == 8)
                     return 1;
             }
             return -1;
+        }
+
+        private bool CanBeSolved(string[] possible_number)
+        {
+            string[] row = new string[9];
+            string[] col = new string[9];
+            string[] sub_arr = new string[9];
+            for (int i = 0; i < 9; i++)
+                for (int j = 0; j < 9; j++)
+                {
+                    if (possible_number[i * 9 + j] == "")
+                        return false;
+                    row[i] += possible_number[i * 9 + j];
+                    col[j] += possible_number[i * 9 + j];
+                    sub_arr[(i / 3) * 3 + (j / 3)] += possible_number[i * 9 + j];
+                }
+            for (int i = 0; i < 9; i++)
+                for (char k = '1'; k <= '9'; k++)
+                    if (!row[i].Contains(k) || !col[i].Contains(k) || !sub_arr[i].Contains(k))
+                        return false;
+            return true;
         }
 
         private string[] GeneratePossibleNumber(string[] rows,string[] colomns,string[]sub_arrays)
