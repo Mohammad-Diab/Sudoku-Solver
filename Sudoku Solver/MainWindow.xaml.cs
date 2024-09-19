@@ -511,6 +511,8 @@ namespace Suduku_Solver_2
                     if (nums.Length == 81)
                         for (int i = 0; i < 81; i++)
                             (grd_container.Children[i] as TextBox).Text = nums[i].ToString();
+                    else
+                        MessageBox.Show("Clipboard does not contain a grid - 81 numbers (0...9) or question marks (?) are needed -");
 
                 }
                 else
