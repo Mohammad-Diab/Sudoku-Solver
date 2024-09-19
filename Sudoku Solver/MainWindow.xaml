@@ -94,6 +94,7 @@
             <Image Source="Images/list-clear.png"/>
         </Button>
         <Button x:Name="btm_solve" Content="Solve" HorizontalAlignment="Left" Margin="392,0,0,10" VerticalAlignment="Bottom" Width="153" Height="40" Click="SolveButton_Click"/>
+        <ProgressBar x:Name="prg_solve" HorizontalAlignment="Left" Margin="392,0,0,3" VerticalAlignment="Bottom" Width="153" Height="5" IsIndeterminate="True" Visibility="Collapsed"/>
         <Button x:Name="btm_check" Content="Check" Margin="10,0,0,10" VerticalAlignment="Bottom" Height="40" Click="CheckButton_Click" HorizontalAlignment="Left" Width="183"/>
         <Grid x:Name="grd_clr_columns" HorizontalAlignment="Left" Height="30" Margin="10,2,0,0" VerticalAlignment="Top" Width="500">
             <Button x:Name="btm_clear_column0" ToolTip="Clear Column" HorizontalAlignment="Left" Width="45" Background="Transparent" Margin="5,0,0,0" Opacity="0" MouseLeave="ClearRowButton_MouseLeave" MouseEnter="ClearRowButton_MouseEnter" Click="ClearColumnButton_Click">

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,6 +32,7 @@ namespace Suduku_Solver_2
         string[] sub_array;
         string[] colomns;
         string[] rows;
+        CancellationTokenSource solve_cancel;
 
         private void ReadInput()
         {
@@ -127,12 +129,24 @@ namespace Suduku_Solver_2
 
 
 
-        private void SolveMatrex()
+        private async void SolveMatrex()
         {
             string[] solotion = new string[9];
+            solve_cancel = new CancellationTokenSource();
+            SetSolving(true);
             long s1 = DateTime.UtcNow.Ticks;
-            var result = NextStep(0, GeneratePossibleNumber(rows, colomns, sub_array), solotion);
+            int result;
+            try
+            {
+                result = await Task.Run(() => NextStep(0, GeneratePossibleNumber(rows, colomns, sub_array), solotion));
+            }
+            catch (OperationCanceledException)
+            {
+                result = 2;
+            }
             long time = DateTime.UtcNow.Ticks - s1;
+            solve_cancel = null;
+            SetSolving(false);
             switch (result)
             {
                 case 0:
@@ -160,6 +174,20 @@ namespace Suduku_Solver_2
             }
         }
 
+        private void SetSolving(bool solving)
+        {
+            grd_container.IsEnabled = !solving;
+            grd_clr_columns.IsEnabled = !solving;
+            grd_clr_rows.IsEnabled = !solving;
+            btm_clear.IsEnabled = !solving;
+            btm_check.IsEnabled = !solving;
+            button_Copy.IsEnabled = !solving;
+            btm_solve.IsEnabled = true;
+            btm_solve.Content = solving ? "Cancel" : "Solve";
+            prg_solve.Visibility = solving ? Visibility.Visible : Visibility.Collapsed;
+            Cursor = solving ? Cursors.AppStarting : null;
+        }
+
         private int NextStep(int level, string[] possible_number, string[] solotion)
         {
             string[] x = new string[9];
@@ -169,6 +197,7 @@ namespace Suduku_Solver_2
                 return 0;
             foreach (var num in y)
             {
+                solve_cancel.Token.ThrowIfCancellationRequested();
                 for (int i = level + 1; i < 9; i++)
                     solotion[i] = rows[i];
                 solotion[level] = num;
@@ -331,6 +360,12 @@ namespace Suduku_Solver_2
 
         private void SolveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (solve_cancel != null)
+            {
+                solve_cancel.Cancel();
+                btm_solve.IsEnabled = false;
+                return;
+            }
             switch (CheckInput())
             {
                 case MatrexState.Invaled:
