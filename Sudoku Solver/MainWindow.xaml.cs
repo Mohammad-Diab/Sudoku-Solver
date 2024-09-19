@@ -150,7 +150,7 @@ namespace Suduku_Solver_2
             switch (result)
             {
                 case 0:
-                    MessageBox.Show(string.Format("Can not Solve , Invalid Input\nTotal time : {0} ms", (long)TimeSpan.FromTicks(time).TotalMilliseconds));
+                    MessageBox.Show(string.Format("Can not Solve , This puzzle has no solution\nTotal time : {0} ms", (long)TimeSpan.FromTicks(time).TotalMilliseconds));
                     break;
                 case 1:
                     for (int i = 0; i < 9; i++)
@@ -169,7 +169,7 @@ namespace Suduku_Solver_2
                     break;
 
                 case -1:
-                    MessageBox.Show(string.Format("Can not Solve , Invalid Input\nTotal time : {0} ms", (long)TimeSpan.FromTicks(time).TotalMilliseconds));
+                    MessageBox.Show(string.Format("Can not Solve , This puzzle has no solution\nTotal time : {0} ms", (long)TimeSpan.FromTicks(time).TotalMilliseconds));
                     break;
             }
         }
