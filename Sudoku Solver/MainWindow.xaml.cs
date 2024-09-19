@@ -303,13 +303,13 @@ namespace Suduku_Solver_2
                 case Key.Left:
                     index = grd_container.Children.IndexOf(sender as TextBox);
                     if (index > 0)
-                        grd_container.Children[index--].Focus();
+                        grd_container.Children[index - 1].Focus();
                     break;
                 case Key.Right:
                 case Key.Enter:
                     index = grd_container.Children.IndexOf(sender as TextBox);
                     if (index < 80)
-                        grd_container.Children[index++].Focus();
+                        grd_container.Children[index + 1].Focus();
                     break;
             }
             e.Handled = true;
