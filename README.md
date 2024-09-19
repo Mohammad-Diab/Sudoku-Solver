@@ -6,10 +6,10 @@ A Sudoku solver for Windows: type a puzzle into the 9 by 9 grid and the app fill
 
 - Enter the given digits (1 to 9) in the grid and leave `?` in the empty cells. Any other character is rejected.
 - **Check** tells you if the grid breaks a row, column or 3 by 3 box rule, or if it is already solved.
-- **Solve** fills the empty cells with a backtracking search.
+- **Solve** fills the empty cells with a backtracking search, or tells you the puzzle has no solution. Hard puzzles can take a while: the search runs in the background and the button turns into **Cancel** until it finishes.
 - **Copy** puts the grid on the clipboard as 9 tab-separated rows (`?` for empty cells), ready to paste into Excel or a text file. **Paste** reads 81 digits back from the clipboard (`0` or `?` for an empty cell).
 - Clear one row or column with the buttons at the edge of the grid, or the whole grid with **Clear all**.
-- **Home** and **End** jump to the first and last cell; **Up**, **Down**, **Page Up** and **Page Down** move between rows.
+- **Home** and **End** jump to the first and last cell; **Up**, **Down**, **Page Up** and **Page Down** move between rows; **Left** and **Right** move to the previous and next cell, and **Enter** moves to the next one.
 
 ## Requirements
 
